@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Radio Dance Power</title>
+<style>
+  body {
+    background: radial-gradient(circle at top, #111, #000);
+    color: #fff;
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+  }
+  h1 {
+    color: #00ffff;
+    text-shadow: 0 0 10px #ff00ff;
+    font-size: 2em;
+    margin-bottom: 20px;
+  }
+  .player {
+    background: rgba(0, 0, 0, 0.6);
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 0 20px #00ffff44;
+    text-align: center;
+  }
+  .btn {
+    background: linear-gradient(45deg, #ff00ff, #00ffff);
+    border: none;
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    cursor: pointer;
+    color: #fff;
+    font-size: 24px;
+    box-shadow: 0 0 20px #00ffff77;
+  }
+  .btn:active {
+    transform: scale(0.95);
+  }
+  .equalizer {
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+    height: 30px;
+  }
+  .bar {
+    width: 5px;
+    background: #00ffff;
+    margin: 0 2px;
+    animation: bounce 1s infinite ease-in-out;
+  }
+  @keyframes bounce {
+    0%, 100% { height: 10px; }
+    50% { height: 30px; }
+  }
+  .bar:nth-child(2) { animation-delay: 0.1s; }
+  .bar:nth-child(3) { animation-delay: 0.2s; }
+  .bar:nth-child(4) { animation-delay: 0.3s; }
+  .bar:nth-child(5) { animation-delay: 0.4s; }
+</style>
+</head>
+<body>
+  <div class="player">
+    <h1>🎶 Radio Dance Power</h1>
+    <button id="playBtn" class="btn">▶</button>
+    <div class="equalizer" id="eq" style="display:none;">
+      <div class="bar"></div>
+      <div class="bar"></div>
+      <div class="bar"></div>
+      <div class="bar"></div>
+      <div class="bar"></div>
+    </div>
+    <audio id="radio" preload="none" src="http://s3.free-shoutcast.com:18036/;?type=http&nocache=10"></audio>
+  </div>
+
+<script>
+  const audio = document.getElementById("radio");
+  const btn = document.getElementById("playBtn");
+  const eq = document.getElementById("eq");
+
+  btn.addEventListener("click", () => {
+    if (audio.paused) {
+      audio.play().then(() => {
+        btn.textContent = "⏸";
+        eq.style.display = "flex";
+      }).catch(e => alert("Errore di riproduzione: " + e));
+    } else {
+      audio.pause();
+      btn.textContent = "▶";
+      eq.style.display = "none";
+    }
+  });
+</script>
+</body>
+</html>
